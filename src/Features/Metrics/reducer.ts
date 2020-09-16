@@ -21,11 +21,8 @@ const slice = createSlice({
     metricsDataReceived: (state, action: PayloadAction<Array<string>>) => {
       state.metrics = [...action.payload];
     },
-    metricsSelected: (state, action: PayloadAction<string>) => {
-      state.selected.push(action.payload);
-    },
-    metricsUnselected: (state, action: PayloadAction<string>) => {
-      state.selected.filter(metric => metric !== action.payload);
+    metricsSelected: (state, action: PayloadAction<Array<string>>) => {
+      state.selected = [...action.payload];
     },
     metricsApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
   },

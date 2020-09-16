@@ -36,5 +36,10 @@ const Metrics = () => {
     dispatch(actions.metricsDataReceived(getMetrics));
   }, [dispatch, data, error]);
 
-  return <Multiselect options={metrics} />
+  const onChangeMetrics = (e: Object, value: string[]) => {
+    console.log(value);
+    dispatch(actions.metricsSelected(value));
+  };
+
+  return <Multiselect options={metrics} onChange={onChangeMetrics} />
 };

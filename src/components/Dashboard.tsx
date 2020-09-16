@@ -14,10 +14,10 @@ export default () => {
   return (
     <Box component="div" className={classes.container}>
       <Grid container spacing={1}>
-        <Grid xs={4}>
+        <Grid item xs={4}>
           <Metrics />
         </Grid>
-        <Grid xs={8}></Grid>
+        <Grid item xs={8}></Grid>
       </Grid>
     </Box>
   )
