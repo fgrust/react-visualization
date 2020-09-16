@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './reducer';
 import { Provider, useQuery } from 'urql';
 import { client, queryGetMetrics } from '../../api';
-import { MenuItem, Select } from '@material-ui/core';
+import Multiselect from '../../components/Multiselect';
 import { IState } from '../../store';
 
 const getMetrics = (state: IState) => {
@@ -36,15 +36,5 @@ const Metrics = () => {
     dispatch(actions.metricsDataReceived(getMetrics));
   }, [dispatch, data, error]);
 
-  return (
-    <Select
-      fullWidth
-      displayEmpty
-      inputProps={{ 'aria-label': 'Without label' }}
-    >
-      {metrics.map(metric => (
-        <MenuItem value={metric}>{metric}</MenuItem>
-      ))}
-    </Select>
-  )
+  return <Multiselect options={metrics} />
 };
