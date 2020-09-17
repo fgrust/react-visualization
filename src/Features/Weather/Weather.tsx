@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from './reducer';
+import { actions as errorAction } from '../Error/reducer';
 import { Provider, useQuery } from 'urql';
 import { useGeolocation } from 'react-use';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -42,7 +43,10 @@ const Weather = () => {
   const { fetching, data, error } = result;
   useEffect(() => {
     if (error) {
-      dispatch(actions.weatherApiErrorReceived({ error: error.message }));
+      dispatch(errorAction.ApiErrorReceived({
+        error: error.message,
+        apiName: 'getWeatherForLocation',
+      }));
       return;
     }
     if (!data) return;

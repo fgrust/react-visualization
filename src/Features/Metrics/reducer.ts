@@ -5,10 +5,6 @@ interface Metrics {
   selected: string[],
 };
 
-export type ApiErrorAction = {
-  error: string,
-}
-
 const initialState: Metrics = {
   metrics: [],
   selected: [],
@@ -24,7 +20,6 @@ const slice = createSlice({
     metricsSelected: (state, action: PayloadAction<Array<string>>) => {
       state.selected = [...action.payload];
     },
-    metricsApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
   },
 });
 

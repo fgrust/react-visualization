@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from './reducer';
 import { Provider, useQuery } from 'urql';
+import { actions } from './reducer';
+import { actions as errorAction } from '../Error/reducer';
 import { client, queryGetMetrics } from '../../api';
 import Multiselect from '../../components/Multiselect';
 import { IState } from '../../store';
 
 const getMetrics = (state: IState) => {
   const { metrics } = state.metrics;
-  return { metrics };
+  return metrics;
 };
 
 export default () => (
@@ -19,7 +20,7 @@ export default () => (
 
 const Metrics = () => {
   const dispatch = useDispatch();
-  const { metrics } = useSelector(getMetrics);
+  const metrics = useSelector(getMetrics);
 
   const [result] = useQuery({
     query: queryGetMetrics,
@@ -28,7 +29,10 @@ const Metrics = () => {
   const { data, error } = result;
   useEffect(() => {
     if (error) {
-      dispatch(actions.metricsApiErrorReceived({ error: error.message }));
+      dispatch(errorAction.ApiErrorReceived({
+        error: error.message,
+        apiName: 'getMetrics',
+      }));
       return;
     }
     if (!data) return;
@@ -37,7 +41,6 @@ const Metrics = () => {
   }, [dispatch, data, error]);
 
   const onChangeMetrics = (e: Object, value: string[]) => {
-    console.log(value);
     dispatch(actions.metricsSelected(value));
   };
 

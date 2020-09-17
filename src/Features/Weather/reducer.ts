@@ -6,10 +6,6 @@ export type WeatherForLocation = {
   temperatureinCelsius: number;
 };
 
-export type ApiErrorAction = {
-  error: string;
-};
-
 const initialState = {
   temperatureinCelsius: 0,
   temperatureinFahrenheit: 0,
@@ -30,7 +26,6 @@ const slice = createSlice({
       state.description = description;
       state.locationName = locationName;
     },
-    weatherApiErrorReceived: (state, action: PayloadAction<ApiErrorAction>) => state,
   },
 });
 
