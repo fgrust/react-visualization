@@ -1,7 +1,8 @@
-import { spawn } from 'redux-saga/effects';
-import weatherSaga from '../Features/Weather/saga';
-import metricsSaga from '../Features/Metrics/saga';
+import { call, spawn } from 'redux-saga/effects';
+import errorSaga from '../Features/Error/saga';
+import measurementSaga from '../Features/Measurement/saga';
 
 export default function* root() {
-  yield spawn([weatherSaga, metricsSaga]);
+  yield spawn(errorSaga);
+  yield call(measurementSaga);
 }

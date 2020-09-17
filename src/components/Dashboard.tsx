@@ -1,10 +1,16 @@
 import React from 'react';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import Metrics from '../Features/Metrics/Metrics';
+import MeasurementCard from '../Features/Measurement/MeasurementCard';
 
 const useStyles = makeStyles({
   container: {
     padding: 30,
+  },
+
+  cards: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
   },
 });
 
@@ -17,7 +23,9 @@ export default () => {
         <Grid item xs={4}>
           <Metrics />
         </Grid>
-        <Grid item xs={8}></Grid>
+        <Grid item xs={8} className={classes.cards}>
+          <MeasurementCard />
+        </Grid>
       </Grid>
     </Box>
   )

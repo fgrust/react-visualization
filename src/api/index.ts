@@ -19,3 +19,14 @@ query($latLong: WeatherQuery!) {
   }
 }
 `;
+
+export const queryGetLastKnownMeasurement = `
+query($metricName: String!) {
+  getLastKnownMeasurement(metricName: $metricName) {
+    metric
+    at
+    value
+    unit
+  }
+}
+`;
