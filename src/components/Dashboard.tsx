@@ -9,7 +9,7 @@ import MeasurementChart from '../Features/Measurement/MeasurementChart';
 const useStyles = makeStyles({
   container: {
     padding: 30,
-    background: '#f0f0f0',
+    background: 'transparent',
   },
 
   cards: {
