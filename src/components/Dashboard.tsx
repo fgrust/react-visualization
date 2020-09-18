@@ -1,11 +1,15 @@
 import React from 'react';
 import { Box, Grid, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { getSelectedMetrics } from '../Features/Measurement/selector';
 import Metrics from '../Features/Metrics/Metrics';
 import MeasurementCard from '../Features/Measurement/MeasurementCard';
+import MeasurementChart from '../Features/Measurement/MeasurementChart';
 
 const useStyles = makeStyles({
   container: {
     padding: 30,
+    background: '#f0f0f0',
   },
 
   cards: {
@@ -16,6 +20,7 @@ const useStyles = makeStyles({
 
 export default () => {
   const classes = useStyles();
+  const selected = useSelector(getSelectedMetrics);
 
   return (
     <Box component="div" className={classes.container}>
@@ -27,6 +32,7 @@ export default () => {
           <MeasurementCard />
         </Grid>
       </Grid>
+      { !!selected.length && <MeasurementChart />}
     </Box>
   )
 };
