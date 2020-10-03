@@ -2,14 +2,18 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
-    commonjs: true,
-    es6: true,
-    node: true,
+    jest:true,
   },
-  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
+  parser: '@typescript-eslint/parser',
   extends: [
-    'airbnb',
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'airbnb-typescript',
+    'airbnb/hooks',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:jest/recommended',
+    'prettier',
+    'prettier/react',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -21,8 +25,13 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.json'
   },
-  plugins: ['react'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'jest',
+  ],
   rules: {
     quotes: ['error', 'double'],
     '@typescript-eslint/no-angle-bracket-type-assertion': 'off',
