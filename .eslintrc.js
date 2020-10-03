@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    commonjs: true,
     jest:true,
   },
   parser: '@typescript-eslint/parser',
@@ -25,7 +26,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: './tsconfig.json',
   },
   plugins: [
     'react',
@@ -33,7 +34,6 @@ module.exports = {
     'jest',
   ],
   rules: {
-    quotes: ['error', 'double'],
     '@typescript-eslint/no-angle-bracket-type-assertion': 'off',
   },
 };
