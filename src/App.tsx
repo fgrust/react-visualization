@@ -1,15 +1,18 @@
-import React from 'react';
-import createStore from './store';
+import React, { ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import 'react-toastify/dist/ReactToastify.css';
+
+import createStore from './store';
 import Header from './components/Header';
 import Wrapper from './components/Wrapper';
 import Dashboard from './components/Dashboard';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const store = createStore();
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -24,7 +27,7 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => (
+const App: React.FC = (): ReactElement => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
