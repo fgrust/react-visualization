@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 
-export type WeatherForLocation = {
+export interface IWeatherForLocation {
   description: string;
   locationName: string;
   temperatureinCelsius: number;
-};
+}
 
 const initialState = {
   temperatureinCelsius: 0,
@@ -19,7 +19,7 @@ const slice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    weatherDataRecevied: (state, action: PayloadAction<WeatherForLocation>) => {
+    weatherDataRecevied: (state, action: PayloadAction<IWeatherForLocation>) => {
       const { description, locationName, temperatureinCelsius } = action.payload;
       state.temperatureinCelsius = temperatureinCelsius;
       state.temperatureinFahrenheit = toF(temperatureinCelsius);
@@ -29,5 +29,4 @@ const slice = createSlice({
   },
 });
 
-export const reducer = slice.reducer;
-export const actions = slice.actions;
+export const { reducer, actions } = slice;

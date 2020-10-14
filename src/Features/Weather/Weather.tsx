@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions } from './reducer';
-import { actions as errorAction } from '../Error/reducer';
 import { Provider, useQuery } from 'urql';
 import { useGeolocation } from 'react-use';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { actions as errorAction } from '../Error/reducer';
+import { actions } from './reducer';
 import Chip from '../../components/Chip';
 import { IState } from '../../store';
 import { client, queryGetWeatherForLocation } from '../../api';
@@ -17,12 +17,6 @@ const getWeather = (state: IState) => {
     locationName,
   };
 };
-
-export default () => (
-  <Provider value={client}>
-    <Weather />
-  </Provider>
-);
 
 const Weather = () => {
   const getLocation = useGeolocation();
@@ -43,10 +37,12 @@ const Weather = () => {
   const { fetching, data, error } = result;
   useEffect(() => {
     if (error) {
-      dispatch(errorAction.ApiErrorReceived({
-        error: error.message,
-        apiName: 'getWeatherForLocation',
-      }));
+      dispatch(
+        errorAction.ApiErrorReceived({
+          error: error.message,
+          apiName: 'getWeatherForLocation',
+        }),
+      );
       return;
     }
     if (!data) return;
@@ -56,5 +52,13 @@ const Weather = () => {
 
   if (fetching) return <LinearProgress />;
 
-  return <Chip label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`} />;
+  return (
+    <Chip label={`Weather in ${locationName}: ${description} and ${temperatureinFahrenheit}°`} />
+  );
 };
+
+export default (): ReactElement => (
+  <Provider value={client}>
+    <Weather />
+  </Provider>
+);
