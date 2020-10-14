@@ -63,7 +63,7 @@ const Chart = ({ heartBeat }: ChartProps) => {
             minute: '2-digit',
             second: '2-digit',
           };
-          const { format } = new Intl.DateTimeFormat(String(label), options);
+          const { format } = new Intl.DateTimeFormat('en-US', options);
           return <span>{format(Number(label))}</span>;
         }}
         isAnimationActive={false}
