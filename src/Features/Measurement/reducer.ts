@@ -1,34 +1,34 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 import { objectFilter } from '../../helper';
 
-type MeasurementForMetric = {
-  metric: string,
-  at: number,
-  value: number,
-  unit: string,
-};
+export interface IMeasurementForMetric {
+  metric: string;
+  at: number;
+  value: number;
+  unit: string;
+}
 
-type Measurement = {
-  [key: string]: MeasurementForMetric,
-};
+export interface IMeasurement {
+  [key: string]: IMeasurementForMetric;
+}
 
-type MultiMeasurements = {
-  metric: string,
-  measurements: MeasurementForMetric[]
-};
+interface IMultiMeasurements {
+  metric: string;
+  measurements: IMeasurementForMetric[];
+}
 
-type ChartData = {
-  [key: string]: number | string,
-};
+export interface IChartData {
+  [key: string]: number | string;
+}
 
-type Unit = {
-  [key: string]: string[],
-};
+export interface IUnit {
+  [key: string]: string[];
+}
 
 const initialState: {
-  lastMeasurement: Measurement,
-  chartData: ChartData[],
-  unit: Unit,
+  lastMeasurement: IMeasurement;
+  chartData: IChartData[];
+  unit: IUnit;
 } = {
   lastMeasurement: {},
   chartData: [],
@@ -39,7 +39,7 @@ const slice = createSlice({
   name: 'measurement',
   initialState,
   reducers: {
-    lastKnownMeasurementReceived: (state, action: PayloadAction<MeasurementForMetric>) => {
+    lastKnownMeasurementReceived: (state, action: PayloadAction<IMeasurementForMetric>) => {
       const { metric, value, at } = action.payload;
       state.lastMeasurement = {
         ...state.lastMeasurement,
@@ -48,17 +48,21 @@ const slice = createSlice({
 
       if (!state.chartData.length) return;
 
+      const { chartData } = state;
+
       if (Object.keys(state.chartData[state.chartData.length - 1]).includes(metric)) {
-        state.chartData.push({ timestamp: at, [metric]: value });
+        chartData.push({ timestamp: at, [metric]: value });
       } else {
-        state.chartData[state.chartData.length - 1][metric] = value;
+        chartData[state.chartData.length - 1][metric] = value;
       }
     },
-    measurementsReceived: (state, action: PayloadAction<MultiMeasurements[]>) => {
+    measurementsReceived: (state, action: PayloadAction<IMultiMeasurements[]>) => {
       if (action.payload.length) {
-        let data = action.payload[0].measurements.map(measurement => ({ timestamp: measurement.at }));
-        let unit: Unit = {};
-        action.payload.forEach(m => {
+        let data = action.payload[0].measurements.map((measurement) => ({
+          timestamp: measurement.at,
+        }));
+        const unit: IUnit = {};
+        action.payload.forEach((m) => {
           data = data.map((item, index) => ({ ...item, [m.metric]: m.measurements[index].value }));
           if (!unit[m.measurements[0].unit]) unit[m.measurements[0].unit] = [];
           unit[m.measurements[0].unit].push(m.metric);
@@ -75,5 +79,4 @@ const slice = createSlice({
   },
 });
 
-export const reducer = slice.reducer;
-export const actions = slice.actions;
+export const { reducer, actions } = slice;

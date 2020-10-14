@@ -35,5 +35,6 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/no-angle-bracket-type-assertion': 'off',
+    'no-param-reassign': ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
   },
 };
