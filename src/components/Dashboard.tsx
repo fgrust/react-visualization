@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { getSelectedMetrics } from '../Features/Measurement/selector';
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default () => {
+export default (): ReactElement => {
   const classes = useStyles();
   const selected = useSelector(getSelectedMetrics);
 
@@ -32,7 +32,7 @@ export default () => {
           <MeasurementCard />
         </Grid>
       </Grid>
-      { !!selected.length && <MeasurementChart />}
+      {!!selected.length && <MeasurementChart />}
     </Box>
-  )
+  );
 };

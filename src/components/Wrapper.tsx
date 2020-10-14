@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FC, PropsWithChildren, ReactElement } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Wrapper: React.FC = ({ children }) => {
+const Wrapper: FC<PropsWithChildren<unknown>> = ({ children }): ReactElement => {
   const classes = useStyles();
   return <div className={classes.wrapper}>{children}</div>;
 };

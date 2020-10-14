@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,9 +11,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default () => {
+export default (): ReactElement => {
   const classes = useStyles();
-  
+
   return (
     <AppBar position="static">
       <Toolbar>
