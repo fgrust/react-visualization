@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from 'redux-starter-kit';
 
-interface Metrics {
-  metrics: string[],
-  selected: string[],
-};
+interface IMetrics {
+  metrics: string[];
+  selected: string[];
+}
 
-const initialState: Metrics = {
+const initialState: IMetrics = {
   metrics: [],
   selected: [],
 };
@@ -23,5 +23,4 @@ const slice = createSlice({
   },
 });
 
-export const reducer = slice.reducer;
-export const actions = slice.actions;
+export const { reducer, actions } = slice;

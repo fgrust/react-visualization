@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Provider, useQuery } from 'urql';
 import { actions } from './reducer';
@@ -12,12 +12,6 @@ const getMetrics = (state: IState) => {
   return metrics;
 };
 
-export default () => (
-  <Provider value={client}>
-    <Metrics />
-  </Provider>
-);
-
 const Metrics = () => {
   const dispatch = useDispatch();
   const metrics = useSelector(getMetrics);
@@ -29,20 +23,28 @@ const Metrics = () => {
   const { data, error } = result;
   useEffect(() => {
     if (error) {
-      dispatch(errorAction.ApiErrorReceived({
-        error: error.message,
-        apiName: 'getMetrics',
-      }));
+      dispatch(
+        errorAction.ApiErrorReceived({
+          error: error.message,
+          apiName: 'getMetrics',
+        }),
+      );
       return;
     }
     if (!data) return;
-    const { getMetrics } = data;
-    dispatch(actions.metricsDataReceived(getMetrics));
+    const { getMetrics: m } = data;
+    dispatch(actions.metricsDataReceived(m));
   }, [dispatch, data, error]);
 
-  const onChangeMetrics = (e: Object, value: string[]) => {
+  const onChangeMetrics = (_e: unknown, value: string[]) => {
     dispatch(actions.metricsSelected(value));
   };
 
-  return <Multiselect options={metrics} onChange={onChangeMetrics} />
+  return <Multiselect options={metrics} onChange={onChangeMetrics} />;
 };
+
+export default (): ReactElement => (
+  <Provider value={client}>
+    <Metrics />
+  </Provider>
+);
