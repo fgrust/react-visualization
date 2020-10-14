@@ -1,5 +1,11 @@
-## Create React App Visualization
+# EOG React Visualization
 
-This assessment was bespoke handcrafted for michael.
+## Libraries
 
-Read more about this assessment [here](https://react.eogresources.com)
+```
+* React
+* TypeScript
+* GraphQL(urql)
+* Material UI
+* Rechart
+```
